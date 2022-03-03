@@ -15,51 +15,60 @@
 
 const maxNumber = 20;
 const minNumber = 0;
+let highScore = 0;
 let maxTries = 20;
+const displayMessage = function(message) {
+  document.querySelector(".message").textContent = message;
+};
+const displayNumber = function(number) {
+  document.querySelector(".number").textContent = number;
+};
+const displayScore = function(score) {
+  document.querySelector(".score").textContent = score;
+};
 const randomGenerator = function() {
+  //trunc -> cut decimal numbers
   return Math.trunc(Math.random() * 20) + 1;
 };
-const secretNumber = randomGenerator();
-console.log(typeof secretNumber, secretNumber);
+// console.log(typeof secretNumber, secretNumber);
+let secretNumber = randomGenerator();
 
 document.querySelector(".check").addEventListener("click", function() {
-  //trunc -> cut decimal numbers
   const guess = Number(document.querySelector(".guess").value);
-  console.log(guess, typeof guess);
-  // document.querySelector(".message").textContent = "Correct Number!";
-  // falsy value use -> we need a true value now so ! to invert the falsy value
-  // 0 is a falsy value // valid input
-  //When there is no input
+  // We need a true value now so ! to invert the falsy value
+  // 0 is a falsy value // valid input check || When there is no input
   if (!guess) {
-    document.querySelector(".message").textContent = "🚫 No number!";
-  }
-  if (maxTries === 1) {
-    document.querySelector(".message").textContent = "Game over";
-    document.querySelector(".score").textContent = 0;
-  } else if (guess > secretNumber && guess <= maxNumber) {
-    document.querySelector(".message").textContent = "Too high!";
-    maxTries--;
-    document.querySelector(".score").textContent = maxTries;
-  } else if (guess < secretNumber && guess >= minNumber) {
-    document.querySelector(".message").textContent = "Too low!";
-    maxTries--;
-    document.querySelector(".score").textContent = maxTries;
+    displayMessage("🚫 No number!");
+  } else if (guess !== secretNumber) {
+    if (maxTries > 1) {
+      displayMessage(guess > secretNumber ? "📈 Too high!" : "📉 Too low!");
+      maxTries--;
+      displayScore(maxTries);
+    } else {
+      displayMessage("Game over");
+      displayScore(0);
+    }
   } else if (guess === secretNumber) {
-    document.querySelector(".number").textContent = secretNumber;
+    displayNumber(secretNumber);
     document.querySelector("body").style.backgroundColor = "#60b347";
-    document.querySelector(".message").textContent = "Correct Number!";
+    displayMessage("🎉Correct guess!");
     document.querySelector(".number").style.width = "30rem";
+    if (maxTries > highScore) {
+      highScore = maxTries;
+      document.querySelector(".highscore").textContent = highScore;
+    }
   } else {
-    document.querySelector(".message").textContent =
-      "Only numbers between 1 and 20!";
+    displayMessage("Only numbers between 1 and 20 allowed!");
   }
 });
 
 document.querySelector(".again").addEventListener("click", function() {
   document.querySelector("body").style.backgroundColor = "#222";
   document.querySelector(".number").style.width = "15rem";
-  document.querySelector(".number").textContent = "?";
+  displayNumber("?");
   document.querySelector(".guess").value = "";
-  document.querySelector(".score").textContent = 20;
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  displayScore(20);
+  displayMessage("Start guessing...");
+  secretNumber = randomGenerator();
+  maxTries = 20;
 });
