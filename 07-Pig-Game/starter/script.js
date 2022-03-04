@@ -17,7 +17,8 @@ const newGame = document.querySelector(".btn--new");
 const windowPl0 = document.querySelector(".player--0");
 const windowPl1 = document.querySelector(".player--1");
 
-// Starting conditions - This variables are only accessible inside the init scope, this means that eventhandlers cannot get access to them. Thats why they must be declared outside the init function and initialized inside the init funcion to make it work everywhere
+/*Starting conditions - This variables are only accessible inside the init scope, this means that eventhandlers cannot get access to them. Thats why they must be declared outside the init function and initialized inside the init function to make it work everywhere*/
+
 let scores, currentScore, activePlayer, playing;
 
 const init = function() {
@@ -38,6 +39,8 @@ const init = function() {
   windowPl1.classList.remove("player--active");
 };
 
+init();
+
 const switchPlayer = function() {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -51,7 +54,6 @@ const randomGenerator = function() {
   return Math.trunc(Math.random() * 6) + 1;
 };
 
-init();
 // Rolling dice functionality
 // Check for rolled 1: if true, switch to next player
 rollDice.addEventListener("click", function() {
@@ -87,7 +89,11 @@ hold.addEventListener("click", function() {
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.remove("player--active");
-      alert(`Player ${activePlayer + 1} won the pig game`);
+      alert(
+        `Player ${activePlayer + 1} won the pig game with ${scores[
+          activePlayer
+        ]} points`
+      );
     } else {
       // Switch to the next player
       switchPlayer();
@@ -96,6 +102,4 @@ hold.addEventListener("click", function() {
   }
 });
 
-newGame.addEventListener("click", function() {
-  init();
-});
+newGame.addEventListener("click", init);
