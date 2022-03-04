@@ -20,6 +20,7 @@ let maxTries = 20;
 const displayMessage = function(message) {
   document.querySelector(".message").textContent = message;
 };
+s;
 const displayNumber = function(number) {
   document.querySelector(".number").textContent = number;
 };
