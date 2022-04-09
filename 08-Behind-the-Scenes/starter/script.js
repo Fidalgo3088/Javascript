@@ -97,6 +97,7 @@ const z = 3;
 // calcAge(1991);
 // calcAgeArrow(1991);
 
+/*
 const jonas = {
   year: 1991,
   calcAge: function() {
@@ -111,6 +112,133 @@ const matilda = {
 };
 
 matilda.calcAge = jonas.calcAge;
+matilda.calcAge();
 
 const f = jonas.calcAge;
 f();
+*/
+// console.log(this);
+
+// const calcAge = function(birthYear) {
+//   console.log(2037 - birthYear);
+//   console.log(this);
+// };
+// calcAge(1991);
+
+// const calcAgeArrow = birthYear => {
+//   console.log(2037 - birthYear);
+//   console.log(this);
+// };
+// calcAge(1980);
+
+// console.log(this);
+
+// var firstName = "Matilda";
+
+// const jonas = {
+//   firstName: "Jonas",
+//   year: 1991,
+//   calcAge: function() {
+//     console.log(this);
+//     console.log(2037 - this.year);
+
+//solution 1
+// way to preserve the this key word
+// const self = this;
+
+// const isMillenial = function() {
+//   console.log(self);
+//   console.log(this);
+//   // console.log(this.year >= 1981 && this.year <= 1996);
+//   console.log(self.year >= 1981 && self.year <= 1996);
+// };
+
+//solution 2
+//this keyword inherits from its parent function. With a regular function this would not work => Result would be undefined
+//     const isMillenial = () => {
+//       console.log(this);
+//       console.log(this.year >= 1981 && this.year <= 1996);
+//     };
+
+//     isMillenial();
+//   },
+
+//   greet: () => {
+//     console.log(this);
+//     console.log(`Hey ${this.firstName}`);
+//   }
+// };
+
+// jonas.greet();
+// jonas.calcAge();
+
+// //arguments keyword
+// const addExpr = function(a, b) {
+//   console.log(arguments);
+//   return a + b;
+// };
+// addExpr(2, 5);
+// addExpr(2, 5, 8, 12);
+
+// // var addArrow = (a, b) => a + b;
+// //arguments keyword only exits in regular functions
+// var addArrow = (a, b) => {
+//   console.log(arguments);
+//   return a + b;
+// };
+// addArrow(2, 5, 8);
+
+/*
+let age = 30;
+let oldAge = age;
+age = 31;
+console.log(age);
+console.log(oldAge);
+
+const me = {
+  name: "Jonas",
+  age: 30
+};
+const friend = me;
+friend.age = 27;
+console.log("Friend:", friend);
+console.log("Me:", me);
+*/
+
+//Primitve types
+let lastName = "Wiliams";
+let oldLastName = lastName;
+lastName = "Davis";
+console.log(lastName, oldLastName);
+
+//Reference types
+const jessica = {
+  firstName: "Jessica",
+  lastName: "Williams",
+  age: 27
+};
+const marriedJessica = jessica;
+marriedJessica.lastName = "Davis";
+console.log("Before marriage:", jessica);
+console.log("After marriage:", marriedJessica);
+
+// marriedJessica = {};
+
+//Copying objects
+const jessica2 = {
+  firstName: "Jessica",
+  lastName: "Williams",
+  age: 27,
+  family: ["Alice", "Bob"]
+};
+
+//Object.assign -> merges 2 objects and then returns a new one
+//jessica 2 is merged with a new empty object {}
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = "Davis";
+
+jessicaCopy.family.push("Mary");
+jessicaCopy.family.push("John");
+
+console.log("Before marriage", jessica2);
+console.log("After marriage", jessicaCopy);
