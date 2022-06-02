@@ -62,13 +62,14 @@ restaurant.orderDelivery({
   starterIndex: 2
 });
 
-restaurant.orderDelivery({
-  time: "22:30",
-  address: "Via del Sole, 21",
-  mainIndex: 2,
-  starterIndex: 2
-});
+// restaurant.orderDelivery({
+//   time: "22:30",
+//   address: "Via del Sole, 21",
+//   mainIndex: 2,
+//   starterIndex: 2
+// });
 /*
+
 //Destructing arrays
 const arr = [2, 3, 4];
 const a = [0];
@@ -80,63 +81,65 @@ const [x, y, z] = arr;
 console.log(x, y, z);
 console.log(arr);
 
-// const [first, second] = restaurant.categories;
-// const [first, , second] = restaurant.categories;
+const [first, second] = restaurant.categories;
+//const [first, , second] = restaurant.categories;
 let [main, , secondary] = restaurant.categories;
 // console.log(first, second);
 console.log(main, secondary);
 
+//old way of assining variables
 const temp = main;
 main = secondary;
 secondary = temp;
 console.log(main, secondary);
 
-// switching variables
+// Switching variables
 [main, secondary] = [secondary, main];
 console.log(main, secondary);
-
 console.log(restaurant.order(2, 0));
 
-// console.log(restaurant.order(2, 0));
 //Receive 2 return values from a function
 const [starter, mainCourse] = restaurant.order(2, 0);
 console.log(starter, mainCourse);
 
-// Nested destructering
+//Nested destructering
 const nested = [2, 4, [5, 6]];
 console.log(nested);
+
 // const [i, , j] = nested;
 // console.log(i, j);
+
 const [i, , [j, k]] = nested;
 console.log(i, j, k);
 
 //Default values
-// const [p = 1, q = 1, r = 1] = [8, 9];
-const [p = 1, q = 1, r = 1] = [8];
+const [p = 1, q = 1, r = 1] = [8, 9];
+// const [p = 1, q = 1, r = 1] = [8];
 console.log(p, q, r);
-*/
+
 const { name, categories, openingHours } = restaurant;
 console.log(name, openingHours, categories);
 
-/*
 //renaming the variables with :
 const {
   name: restaurantName,
   openingHours: hours,
   categories: tags
 } = restaurant;
+
 console.log(restaurantName, hours, tags);
-*/
 
 //Default values
 const { menu = [], starterMenu: starters = [] } = restaurant;
 console.log(menu, starters);
-
+*/
+/*
 //Mutating variables
 let a = 111;
 let b = 999;
 const obj = { a: 23, b: 7, c: 14 };
 
+//use parenthesis to destruct objects()
 ({ a, b } = obj);
 console.log(a, b);
 
@@ -144,6 +147,7 @@ console.log(a, b);
 const { fri: { open: o, close: c } } = openingHours;
 console.log(o, c);
 
+*/
 const arr = [7, 8, 9];
 const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
 console.log(badNewArray);
@@ -171,16 +175,20 @@ const letters = [...str, " ", "S."];
 console.log(letters);
 console.log(...str);
 
-//spread operator doesnt work like because this is not a place thats expects multiple values separeted by a comma
+// spread operator doesnt work like because this is not a place thats
+// expects multiple values separeted by a comma
 // console.log(`${...str} Schmedtmann`);
 
-// const ingredients = [ 3, -2, -6, -1?"),
-//   prompt("Let's make pasta!  Ingredient 2?"),
-//   prompt("Let's make pasta!  Ingredient 3?")
-// ];
+/*
+const ingredients = [prompt("Let\'s make pasta! Ingredient 1?"),
+ prompt("Let\'s make pasta! Ingredient 2?"),
+ prompt("Let\'s make pasta! Ingredient 3?")
+];
+console.log(ingredients);
 
-// restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
-// restaurant.orderPasta(...ingredients);
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+restaurant.orderPasta(...ingredients);
+*/
 
 // Objects
 const newRestaurant = { foundedIn: 1998, ...restaurant, founder: "Guiseppe" };
@@ -189,4 +197,5 @@ console.log(newRestaurant);
 const restaurantCopy = { ...restaurant };
 restaurantCopy.name = "Ristorante Roma";
 console.log(restaurantCopy.name);
-~console.log(restaurant.name);
+console.log(restaurant.name);
+
