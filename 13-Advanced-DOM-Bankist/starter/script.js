@@ -118,7 +118,8 @@ tabsContainer.addEventListener('click', function(e){
 });
 
 //Menu fade animation
-nav.addEventListener('mouseover', function(e){
+const handleHover = function(e){
+  console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -126,16 +127,73 @@ nav.addEventListener('mouseover', function(e){
 
     siblings.forEach(el => {
       if (el !== link) {
-        el.style.opacity = 0.5;        
+        el.style.opacity = this;        
       }
     });
-    logo.style.opacity = 0.5;
-  }  
-})
+    logo.style.opacity = this;
+  } 
+}
 
-nav.addEventListener('mouseout', function(e){
+// nav.addEventListener('mouseover', function(e){
+//   handleHover(e,0.5);
+// });
+// nav.addEventListener('mouseout', function(e){
+//   handleHover(e,1)
+// });
 
-})
+// Passing "argument" into handler
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky navigation
+// const initialCoords = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function(){
+//   console.log(window.scrollY);
+//   if (window.scrollY > initialCoords.top) {
+//     nav.classList.add('sticky');
+//   }else{
+//    nav.classList.remove('sticky');
+//   }
+// })
+
+//A Better Way: The Intersection Observer API
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry =>{
+//     console.log(entry);
+//   })
+// };
+
+// const obsOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+
+const stickyNav = function(entries){
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');        
+  }else{
+    nav.classList.remove('sticky');            
+  }
+
+}
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
+
 //Selecting elements
 // console.log(document.documentElement);
 // console.log(document.head);
